@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黄文兴 - Beer Bash 自我介绍</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ECFEFF 0%, #FFFFFF 100%);
+            color: #164E63;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Caveat', cursive;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem;
+            scroll-snap-align: start;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .accent {
+            color: #0891B2;
+        }
+        
+        .accent-secondary {
+            color: #0e7490;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(8, 145, 178, 0.2);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #0891B2, #22D3EE);
+            border-radius: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+        
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #CBD5E1;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: #0891B2;
+            transform: scale(1.4);
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .photo-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .photo-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.3);
+            z-index: 10;
+        }
+        
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
+            animation: scroll 30s linear infinite;
+        }
+        
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+        
+        .carousel-img {
+            flex-shrink: 0;
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .carousel-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.3);
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-300px * 9 - 1rem * 9));
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+            .carousel-track {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-slide="0"></div>
+        <div class="nav-dot" data-slide="1"></div>
+        <div class="nav-dot" data-slide="2"></div>
+        <div class="nav-dot" data-slide="3"></div>
+        <div class="nav-dot" data-slide="4"></div>
+    </div>
+
+    <!-- Slide 1: Hero -->
+    <section class="slide visible" id="slide-0">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left: Profile Image -->
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <img src="个人照片.jpg" 
+                             alt="黄文兴" 
+                             class="rounded-full w-80 h-80 object-cover shadow-2xl border-8 border-white">
+                        <!-- Decorative tags around photo -->
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-4 py-2 shadow-lg rotate-6">
+                            <p class="text-sm font-bold text-gray-700">🎮 游戏</p>
+                        </div>
+                        <div class="absolute top-8 -left-12 bg-white rounded-full px-4 py-2 shadow-lg -rotate-12">
+                            <p class="text-sm font-bold text-gray-700">📷 摄影</p>
+                        </div>
+                        <div class="absolute top-1/3 -right-16 bg-white rounded-full px-4 py-2 shadow-lg rotate-12">
+                            <p class="text-sm font-bold text-gray-700">🎬 影视</p>
+                        </div>
+                        <div class="absolute bottom-1/4 -left-14 bg-white rounded-full px-4 py-2 shadow-lg rotate-6">
+                            <p class="text-sm font-bold text-gray-700">🏔️ 徒步</p>
+                        </div>
+                        <div class="absolute bottom-1/3 -right-14 bg-white rounded-full px-4 py-2 shadow-lg -rotate-6">
+                            <p class="text-sm font-bold text-gray-700">🏎️ F1</p>
+                        </div>
+                        <div class="absolute -bottom-6 right-1/4 bg-white rounded-full px-4 py-2 shadow-lg rotate-12">
+                            <p class="text-sm font-bold text-gray-700">🎵 音乐</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Info -->
+                <div class="text-left">
+                    <h1 class="text-8xl md:text-9xl font-bold mb-6 accent">
+                        Hello! 🍻
+                    </h1>
+                    <p class="text-3xl md:text-4xl font-medium mb-8 text-gray-700 leading-relaxed">
+                        不只是产品经理的<br>
+                        <span class="accent">"杂食向"</span>人类
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <img src="头像.jpg" 
+                                 alt="头像" 
+                                 class="w-12 h-12 rounded-full object-cover shadow-md">
+                            <div>
+                                <p class="text-2xl font-bold text-gray-800">黄文兴</p>
+                                <p class="text-lg text-gray-600">Ego</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Hashtag tags -->
+                        <div class="flex flex-wrap gap-2 mt-6">
+                            <span class="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold accent">#ENTJ</span>
+                            <span class="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold text-gray-700">#时I时E</span>
+                            <span class="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold text-gray-700">#耳机依赖患者</span>
+                            <span class="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold text-gray-700">#唱片收集癖</span>
+                            <span class="px-4 py-2 bg-white rounded-full shadow-md text-sm font-semibold text-gray-700">#腰突躺平中</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Career -->
+    <section class="slide" id="slide-1">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center accent">
+                01 / 职业：土木转行的 PM 练习生
+            </h2>
+            <div class="grid md:grid-cols-5 gap-8 items-start">
+                <!-- Profile Image -->
+                <div class="md:col-span-2 flex justify-center">
+                    <img src="个人照片.jpg" 
+                         alt="黄文兴个人照片" 
+                         class="rounded-2xl w-full max-w-sm object-cover shadow-xl"
+                         style="aspect-ratio: 3/4;">
+                </div>
+                
+                <!-- Career Cards -->
+                <div class="md:col-span-3 space-y-6">
+                    <div class="card">
+                        <h3 class="text-3xl font-bold mb-3 accent">东南大学-土木老哥</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            毕业前差点进了某知名地产公司<br>
+                            <span class="text-base text-gray-500">(成功躲过暴雷边缘 ✌️)</span>
+                        </p>
+                    </div>
+                    <div class="card">
+                        <h3 class="text-3xl font-bold mb-3 accent">PM 练习生</h3>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            产品经理练习时长两年半<br>
+                            目前正在 <span class="accent-secondary font-semibold">AI 和数据领域</span> 中开荒<br>
+                            <span class="text-base text-gray-500">欢迎各位大佬带飞 🚀</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Music & Movies -->
+    <section class="slide" id="slide-2">
+        <div class="max-w-7xl mx-auto w-full">
+            <h2 class="text-4xl md:text-5xl font-bold mb-5 text-center accent">
+                02 / 耳膜与虹膜：杂食性人类的自我修养
+            </h2>
+            <p class="text-center text-gray-500 italic text-base mb-6">"不画原型的时候，我主要靠这些东西'续命'。"</p>
+            
+            <div class="grid md:grid-cols-3 gap-5">
+                <!-- Left Column: DJ + 唱片 -->
+                <div class="space-y-4">
+                    <!-- DJ Card -->
+                    <div class="card py-4 px-4">
+                        <div class="flex gap-3 items-center">
+                            <img src="dj.jpg" 
+                                 alt="校园电台 DJ" 
+                                 class="w-20 h-20 rounded-lg object-cover shadow-md">
+                            <div>
+                                <h3 class="text-xl font-bold accent">前电台DJ（校园版🐶）</h3>
+                                <p class="text-sm text-gray-600">唯一的"演艺巅峰"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 实体唱片收集癖 -->
+                    <div class="card py-4 px-4">
+                        <h3 class="text-xl font-bold mb-3 accent">💿 实体唱片收集癖</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <img src="近期买的一些唱片.jpg" 
+                                 alt="近期收藏的唱片" 
+                                 class="rounded-lg w-full object-cover shadow-md"
+                                 style="height: 180px;">
+                            <img src="陶喆唱片.png" 
+                                 alt="陶喆唱片" 
+                                 class="rounded-lg w-full object-cover shadow-md"
+                                 style="height: 180px;">
+                            <img src="唱片黑胶.jpeg" 
+                                 alt="Miles Davis - Kind of Blue" 
+                                 class="rounded-lg w-full object-cover shadow-md"
+                                 style="height: 180px;">
+                            <img src="唱片收藏.jpeg" 
+                                 alt="唱片收藏" 
+                                 class="rounded-lg w-full object-contain shadow-md"
+                                 style="height: 180px;">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Middle Column: 耳膜听什么 -->
+                <div class="card py-4 px-4">
+                    <h3 class="text-xl font-bold mb-3 accent">🎧 耳膜听什么</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <img src="kanye01.JPG" 
+                             alt="Kanye West" 
+                             class="rounded-lg w-full h-48 object-cover shadow-md">
+                        <img src="kanye02.jpg" 
+                             alt="Kanye West" 
+                             class="rounded-lg w-full h-48 object-cover shadow-md">
+                    </div>
+                    <p class="text-xs text-gray-400 mb-4">🎤 Kanye Live · Seen 2x</p>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">杂食性清单</h4>
+                            <p class="text-sm text-gray-600">Hip-hop, R&B, Rock, Jazz, Soul... 甚至 Kpop/Jpop 也不放过</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">神坛位</h4>
+                            <p class="text-sm text-gray-600">Kanye (线下见过 2 次！), Kendrick Lamar, Prince, 陶喆</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">乐队坑</h4>
+                            <p class="text-sm text-gray-600">万青 / Radiohead / Oasis / Blur / 黑帝 / 重塑</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">最近单曲循环</h4>
+                            <p class="text-sm text-gray-600">夏日麽麽茶 🍵</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: 虹膜看什么 -->
+                <div class="card py-4 px-4">
+                    <h3 class="text-xl font-bold mb-3 accent">👁️ 虹膜看什么</h3>
+                    
+                    <!-- Better Call Saul Image -->
+                    <div class="mb-3">
+                        <img src="bettercall saul.jpeg" 
+                             alt="Better Call Saul" 
+                             class="rounded-lg w-full object-cover shadow-md"
+                             style="height: 192px;">
+                        <p class="text-xs text-gray-400 mt-2 italic">Better Call Saul</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- 电影爱好者 -->
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">电影爱好者</h4>
+                            <p class="text-sm text-gray-600">
+                                德尼罗、阿尔帕西诺、昆汀、诺兰
+                            </p>
+                        </div>
+                        
+                        <!-- 电子榨菜 -->
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">电子榨菜</h4>
+                            <p class="text-sm text-gray-600">《老友记》/《生活大爆炸》</p>
+                        </div>
+                        
+                        <!-- 深度中毒 -->
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">深度中毒</h4>
+                            <p class="text-sm text-gray-600">《绝命毒师》/《风骚律师》/《真探》</p>
+                        </div>
+                        
+                        <!-- 经典重温 -->
+                        <div>
+                            <h4 class="text-base font-bold accent-secondary mb-1">经典重温</h4>
+                            <p class="text-sm text-gray-600">《2001太空漫游》/《星际穿越》/《出租车司机》/《盗火线》</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: F1 -->
+    <section class="slide" id="slide-3">
+        <div class="max-w-5xl mx-auto w-full">
+            <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center accent">
+                03 / 速度与激情：法拉利粉的自我博弈
+            </h2>
+            
+            <!-- F1 Photos -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <img src="法拉利01.PNG" 
+                         alt="法拉利 F1" 
+                         class="rounded-2xl w-full h-80 object-cover shadow-xl">
+                    <p class="text-xs text-gray-400 mt-2">📍 Shanghai International Circuit, 2025</p>
+                </div>
+                <div>
+                    <img src="法拉利02.JPG" 
+                         alt="法拉利 F1" 
+                         class="rounded-2xl w-full h-80 object-cover shadow-xl">
+                    <p class="text-xs text-gray-400 mt-2">🏎️ Chinese Grand Prix · Photo by Ego</p>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="card text-center">
+                <h3 class="text-4xl font-bold mb-4 accent">法拉利粉的自我博弈</h3>
+                <p class="text-xl text-gray-600 mb-3">
+                    F1 资深观众 | <span class="accent-secondary font-semibold">法拉利车队</span> 忠实拥趸
+                </p>
+                <p class="text-3xl font-bold mb-3 accent">窝法氦镁烷！</p>
+                <p class="text-lg text-gray-600">
+                    但私下也是 <span class="accent-secondary font-semibold">潘子</span> 的实力吹
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Hobbies -->
+    <section class="slide" id="slide-4">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl md:text-5xl font-bold mb-10 text-center accent">
+                04 / 现充爱好：游戏、摄影与废掉的膝盖
+            </h2>
+            
+            <!-- Hobbies Grid -->
+            <div class="grid md:grid-cols-4 gap-4 mb-8">
+                <div class="card text-center">
+                    <h3 class="text-xl font-bold mb-2 accent">🎮 ACT</h3>
+                    <p class="text-sm text-gray-600">鬼泣、战神、黑猴<br>只狼、老头环</p>
+                </div>
+                <div class="card text-center">
+                    <h3 class="text-xl font-bold mb-2 accent">🎯 竞技</h3>
+                    <p class="text-sm text-gray-600">DOTA2 / LOL<br>随叫随到</p>
+                </div>
+                <div class="card text-center">
+                    <h3 class="text-xl font-bold mb-2 accent">📷 摄影</h3>
+                    <p class="text-sm text-gray-600">扫街 + 胶片<br>欢迎交流</p>
+                </div>
+                <div class="card text-center">
+                    <h3 class="text-xl font-bold mb-2 accent">🏔️ 徒步</h3>
+                    <p class="text-sm text-gray-600">膝盖已废<br>5月沙漠见</p>
+                </div>
+            </div>
+            
+            <!-- Xinjiang Photos - Auto Carousel -->
+            <div class="card relative overflow-hidden">
+                <div class="carousel-container">
+                    <div class="carousel-track">
+                        <img src="xj01.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj02.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj03.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj04.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj05.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj06.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj07.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj08.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj09.jpg" alt="新疆徒步" class="carousel-img">
+                        <!-- Duplicate for seamless loop -->
+                        <img src="xj01.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj02.jpg" alt="新疆徒步" class="carousel-img">
+                        <img src="xj03.jpg" alt="新疆徒步" class="carousel-img">
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 text-center">🏜️ Xinjiang Hiking · Photo by Ego</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    const slideIndex = entry.target.id.split('-')[1];
+                    navDots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === parseInt(slideIndex));
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        slides.forEach(slide => observer.observe(slide));
+        
+        // Nav dot click handlers
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const slideIndex = dot.dataset.slide;
+                const targetSlide = document.getElementById(`slide-${slideIndex}`);
+                targetSlide.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const visibleSlides = Array.from(slides).filter(s => s.classList.contains('visible'));
+            if (visibleSlides.length === 0) return;
+            
+            const currentSlide = visibleSlides[visibleSlides.length - 1];
+            const currentIndex = parseInt(currentSlide.id.split('-')[1]);
+            
+            if (e.key === 'ArrowDown' && currentIndex < slides.length - 1) {
+                slides[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                slides[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
