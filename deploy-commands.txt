@@ -1,0 +1,45 @@
+# GitHub Pages 命令行部署步骤
+
+## 前提条件
+# 1. 确保已安装 Git
+# 2. 确保已登录 GitHub 账号
+# 3. 已在 GitHub 创建好仓库（Public）
+
+## 在终端中执行以下命令
+
+# 1. 进入项目文件夹
+cd /Users/ego_world/Desktop/ppt
+
+# 2. 初始化 Git（如果还没初始化）
+git init
+
+# 3. 添加所有文件
+git add index.html
+git add *.jpg *.JPG *.jpeg *.png *.PNG
+git add DEPLOY.md
+
+# 4. 提交
+git commit -m "Initial commit: Beer Bash presentation"
+
+# 5. 添加远程仓库（替换成你的用户名和仓库名）
+git remote add origin https://github.com/你的用户名/beer-bash-intro.git
+
+# 6. 推送到 GitHub
+git branch -M main
+git push -u origin main
+
+## 如果推送失败，可能需要先拉取
+# git pull origin main --allow-unrelated-histories
+# git push -u origin main
+
+## 更新内容时（修改后重新部署）
+# git add .
+# git commit -m "Update presentation"
+# git push
+
+## 启用 GitHub Pages
+# 1. 访问 https://github.com/你的用户名/beer-bash-intro
+# 2. Settings → Pages
+# 3. Source 选择 main 分支
+# 4. Save
+# 5. 等待几分钟，访问 https://你的用户名.github.io/beer-bash-intro/
